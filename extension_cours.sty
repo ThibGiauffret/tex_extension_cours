@@ -1,0 +1,500 @@
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{extension_cours}[2018/10/21 Extension personnelle Th. G, V2.3]
+
+%----------------------------------------------------------------------------------------
+%	PAQUETS REQUIS ET CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\RequirePackage[top=2cm, bottom=2cm, left=1cm, right=1cm]{geometry} % Mise en forme des marges
+\RequirePackage[dvipsnames]{xcolor} % Gestion des couleurs en Latex
+\RequirePackage[T1]{fontenc} % Saisie des caractères accentués
+\RequirePackage[francais]{babel} % Mise en forme française du document (chapitre, parties...)
+\RequirePackage{amsmath} % Alignement des équations sur plusieurs lignes (eqnarray)
+\RequirePackage[nottoc, notlof, notlot]{tocbibind} % Gestion de la bibliographie et de la table des matières
+\RequirePackage{amssymb} % Symboles mathématiques supplémentaires
+\RequirePackage{lmodern} % Police Latin Modern
+\RequirePackage{fancyhdr} % Style de page
+\RequirePackage[utf8]{inputenc} % Encodage des caractères en entrée
+\RequirePackage{array} % Gestion des tableaux
+\RequirePackage{booktabs} % Des tableaux plus propres
+\RequirePackage{soul} % Gestion des hyphenations
+\RequirePackage{tikz} % Création d'éléments graphiques
+\usetikzlibrary{calc} % Librairie calc pour tikz
+\RequirePackage{colortbl} % Coloration de tableaux
+\RequirePackage{lscape} % Modifications de marges et rotation en paysage
+\RequirePackage{wrapfig} % Inclusion d'images ancrées dans le texte
+\RequirePackage{multirow} % Gestion des multilignes dans les tableaux
+\RequirePackage{subcaption,graphicx} % Prise en charge des sous titres d'images et inclusion d'images
+\RequirePackage{chemformula} % Écriture d'équations bilans en chimie
+\RequirePackage{import} % Importation de code TeX (format pdf_tex d'inkscape)
+\RequirePackage[labelfont={bf,sf}]{caption} % Gestion des titres d'images (Figure en gras et sans serif ici)
+\RequirePackage[
+hidelinks,
+pdfstartview=FitV,
+linkcolor= myblue,
+citecolor= linkcolor,
+urlcolor= linkcolor,
+hyperindex=true,
+bookmarks=true,
+hyperfigures=false,
+pdfauthor={\auteur},
+pdftitle={\titre\ |\ \niveau},
+pdfsubject={},
+pdfkeywords={},
+pdfproducer={LaTeX},
+pdfcreator={pdflatex}]
+{hyperref} % Fichiers pdf 'intelligents', avec des liens entre les références, etc.
+\RequirePackage{longtable} % Tableaux sur plusieurs pages
+\RequirePackage{float} % Gestion des flottants(images, tables...)
+\RequirePackage[explicit]{titlesec} % Modification des styles des chapitres/section etc.
+\RequirePackage[most]{tcolorbox} % Cadres complets
+\tcbuselibrary{skins,breakable} % Librairies skins et breakable pour tcolorbox 
+\RequirePackage{multicol} % Gestion de documents à plusieurs colonnes
+\RequirePackage{siunitx} % Gestion des unités
+\RequirePackage{enumitem} % Listes numérotées
+\RequirePackage{dashrule} % Lignes pointillées
+\RequirePackage{multido} % Répéter plusieurs fois une commande
+\RequirePackage{fontspec} % Gestion des polices AAT et OpenType
+\RequirePackage{fontawesome5} % Ensemble d'icones
+\RequirePackage{titletoc} % Gestion du style de la table des matières
+\RequirePackage{lastpage} % Dernière page
+\RequirePackage{pstricks} % Dessin post script
+\RequirePackage{pst-plot}
+\RequirePackage{pst-grad}
+\RequirePackage{multiaudience} 
+\SetNewAudience{prof}
+\SetNewAudience{eleve}
+\SetNewAudience{default}
+\providecommand*\CurrentAudience{default}
+
+%----------------------------------------------------------------------------------------
+%	MISE EN FORME
+%----------------------------------------------------------------------------------------
+\parindent=0cm % Pas déindentation à chaque paragraphe
+\pagestyle{fancy} % Style de page : fancy (entete et pied), plain (seulement numéro de page) ou empty
+\newcommand{\hsp}{\hspace{20pt}}
+
+\fancypagestyle{plain} % Style de page
+
+\fancyhf{} % Pas d'entête et pied de page
+\renewcommand{\headrulewidth}{0pt} % Pas de ligne dans l'entête
+
+\rhead{\sffamily \auteur} % Positionne le nom de l'auteur en haut à droite
+\lhead{\sffamily \niveau,\ \etablissement} % Positionne la classe et l'établissement en haut à gauche
+\rfoot{\sffamily \bfseries \thepage/\begingroup\hypersetup{hidelinks}\pageref{LastPage}\endgroup} % Positionne le numéro de page en bas à droite
+\cfoot{\tiny \sffamily \today, \textcolor{myblue}{\url{http://thibault.giauffret.free.fr}}} % Position supplémentaire en bas au centre
+
+%----------------------------------------------------------------------------------------
+%	COULEURS
+%----------------------------------------------------------------------------------------
+\definecolor{linkcolor}{rgb}{0,0,0.6}
+\definecolor{gray75}{gray}{0.75}
+\definecolor{myred}{HTML}{D62626}
+\definecolor{myblue}{HTML}{1053AF}
+\definecolor{mygreen}{HTML}{2E8B73}
+\definecolor{myorange}{HTML}{F29F00}
+
+%----------------------------------------------------------------------------------------
+%	GESTION DES TABLEAUX
+%----------------------------------------------------------------------------------------
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\setlength{\columnsep}{2cm}
+\setlength{\columnseprule}{0.4pt}
+\newcolumntype{R}[1]{>{\flushright\arraybackslash}m{#1}}
+\setlength{\columnsep}{2cm}
+\setlength{\columnseprule}{0.4pt}
+\newcolumntype{L}[1]{>{\flushleft\arraybackslash}m{#1}}
+\setlength{\columnsep}{2cm}
+\setlength{\columnseprule}{0.4pt}
+
+%----------------------------------------------------------------------------------------
+%	MISE EN FORME DES SECTIONS ET SOUS-SECTIONS
+%----------------------------------------------------------------------------------------
+\renewcommand\thesection{\Roman{section}} % Numérotation des sections
+
+\titleformat{\section}[block] % Style des sections
+{\Large\bfseries\sffamily}{\bfseries\normalfont\sffamily\colorbox{myred}{\bfseries\textcolor{white}{\thesection}}}{15pt}{\color{myred}\Large\normalfont\sffamily\bfseries #1}
+
+\renewcommand{\thesubsection}{\Alph{subsection}} % Numérotation des sous-sections
+\titleformat{\subsection}[block] % Style des sous-sections
+{\large\bfseries\sffamily}{\hsp \textcolor{myblue}{\thesubsection)}}{15pt}{\color{myblue}\large\normalfont\sffamily\bfseries #1}
+
+
+% Style des sections dans la table des matières
+\titlecontents{section}[1.25cm] % Indentation
+{\small \addvspace{3pt}\bfseries} % Spacing and font options for sections
+{\contentslabel[\thecontentslabel]{1.25cm}} % Section number
+{}
+{\hfill\color{black}\thecontentspage} % Page number
+[]
+% fin Style des sections dans la table des matières
+
+% Style des sous-sections dans la table des matières
+\newcommand\xquad
+{\hspace{1em plus.4em minus.4em}}
+\titlecontents*{subsection}[1.25cm]
+{\filright\small}{}{}
+{}
+[\xquad\textbullet\xquad][]
+% fin Style des sous-sections dans la table des matières
+
+%----------------------------------------------------------------------------------------
+%	COMMANDES
+%----------------------------------------------------------------------------------------
+
+% entetes
+\newtcolorbox{titlebox}{
+	enhanced,
+	breakable,
+	colframe=black!65!white,
+	colback=white,
+	sidebyside,
+	sidebyside align=top,
+	sidebyside gap=10.5mm,
+	righthand width=0.25\linewidth,
+	fonttitle=\bfseries\sffamily,
+	colbacktitle=lightgray,
+	coltitle=black,
+	after skip = 0.5cm,
+	subtitle style={boxrule=1pt,colback=black!5!white,halign=center},
+	segmentation style={solid, black!65!white, line width=1.5pt},
+	title={\Large \vspace{0.15cm} \matiere \hsp \scshape \titre \vspace{0.2cm}},
+	after title={\hfill \itshape \normalsize \theme},
+}
+
+
+\newcommand{\EnteteCours}{
+	\vspace{-2cm}
+	\begin{titlebox}
+		\vspace{-0.65cm}
+		\tcbsubtitle[]%
+		{\strut \faList\ Plan}
+		\renewcommand{\contentsname}{}
+		{\small
+			\vspace{-1.7cm}
+			\color{black}
+			\tableofcontents}
+		\tcbsubtitle[]%
+		{\strut \faGraduationCap\ Compétences}
+		{\small \competences}
+		\tcblower
+		\vspace{-0.65cm}
+		\tcbsubtitle[]%
+		{\strut \faFile\ Documents}
+		{\small \documents}
+		\tcbsubtitle[]%
+		{\strut \faPen\ Exercices}
+		{\small \exercices}
+	\end{titlebox}
+	\tcbstartrecording
+}
+
+\newtcolorbox{titleboxactivite}{
+	enhanced,
+	breakable,
+	colframe=black!65!white,
+	colback=white,
+	sidebyside,
+	sidebyside align=top,
+	sidebyside gap=10.5mm,
+	righthand width=0.32\linewidth,
+	fonttitle=\bfseries\sffamily,
+	colbacktitle=lightgray,
+	coltitle=black,
+	after skip = 0.5cm,
+	subtitle style={boxrule=1pt,colback=black!5!white,halign=center},
+	segmentation style={solid, black!65!white, line width=1.5pt},
+	title={ \Large \vspace{0.15cm} \matiere \hsp \titre \vspace{0.2cm}},
+	after title={\hfill \Large \code},
+}
+
+\newcommand{\EnteteActivite}{
+	\vspace{-2cm}
+	\begin{titleboxactivite}
+		\vspace{-0.65cm}
+		\tcbsubtitle[]%
+		{\strut \faGraduationCap\ Compétences exigibles}
+		{\small \competences}
+		\tcblower
+		\vspace{-0.65cm}
+		\tcbsubtitle[]%
+		{\strut \faMedal\ Autoévaluation/Évaluation}
+		{\vspace{-0.23cm} \small \hspace{-0.5cm}
+			\begin{tabular}{c|c|c|c|c|c}
+				\multirow{2}{*}{\textbf{\textit{S'approprier}}} & \cellcolor{gray!25}Élève & \cellcolor{gray!25}A & \cellcolor{gray!25}B & \cellcolor{gray!25}C & \cellcolor{gray!25}D\\
+				& Prof & a & b & c & d\\
+				\multirow{2}{*}{\textbf{\textit{Analyser}}} & \cellcolor{gray!25}Élève & \cellcolor{gray!25}A & \cellcolor{gray!25}B & \cellcolor{gray!25}C & \cellcolor{gray!25}D\\
+				& Prof & a & b & c & d\\
+				\multirow{2}{*}{\textbf{\textit{Réaliser}}} & \cellcolor{gray!25}Élève & \cellcolor{gray!25}A & \cellcolor{gray!25}B & \cellcolor{gray!25}C & \cellcolor{gray!25}D\\
+				& Prof & a & b & c & d\\
+				\multirow{2}{*}{\textbf{\textit{Valider}}} & \cellcolor{gray!25}Élève & \cellcolor{gray!25}A & \cellcolor{gray!25}B & \cellcolor{gray!25}C & \cellcolor{gray!25}D\\
+				& Prof & a & b & c & d\\
+				\multirow{2}{*}{\textbf{\textit{Communiquer}}} & \cellcolor{gray!25}Élève & \cellcolor{gray!25}A & \cellcolor{gray!25}B & \cellcolor{gray!25}C & \cellcolor{gray!25}D\\
+				& Prof & a & b & c & d\\
+			\end{tabular}
+			\vspace{-0.3cm}}
+	\end{titleboxactivite}
+	\tcbstartrecording
+}
+
+\newcommand{\EnteteTd}{
+	\vspace{-2cm}
+	\begin{titleboxactivite}
+		\vspace{-0.65cm}
+		\tcbsubtitle[]%
+		{\strut \faGraduationCap\ Compétences exigibles}
+		{\small \competences}
+		\tcblower
+		\vspace{-0.65cm}
+		\tcbsubtitle[]%
+		{\strut \faChartLine\ Niveaux}
+		{{\small\textcolor{myred}{\faHeart}}\ À savoir refaire !\\
+		{\small\textcolor{myorange}{\faStar}}\ Niveau de base\\
+		{\small\textcolor{myorange}{\faStar\faStar}}\ Niveau intermédiaire\\
+		{\small\textcolor{myorange}{\faStar\faStar\faStar}}\ Niveau avancé
+	}
+	\end{titleboxactivite}
+	\tcbstartrecording
+}
+
+\newtcolorbox{titleboxsimple}{
+	enhanced,
+	breakable,
+	colframe=black!65!white,
+	colback=lightgray,
+}
+
+
+\newcommand{\Entete}{
+	\vspace{-2cm}
+	\begin{titleboxsimple}
+		\bfseries\sffamily \Large \matiere \hsp \titre \hfill \code
+	\end{titleboxsimple}
+	\tcbstartrecording
+}
+% fin entêtes
+
+% cadre définition
+\newtcbtheorem{definition}{Définition}{
+	colback=mygreen!10!white,
+	colframe=mygreen!75,fonttitle=\sffamily\bfseries,
+	width=\linewidth
+}{de}
+% fin cadre définition
+
+% cadre méthode
+\newtcbtheorem{methode}{Méthode}{
+	colback=myorange!20!white,
+	colframe=myorange!75,fonttitle=\sffamily\bfseries,
+	width=\linewidth
+}{me}
+% fin cadre méthode
+
+% cadre propriété
+\newtcbtheorem{propriete}{Propriété}{
+	colback=myred!10!white,
+	colframe=myred!75,fonttitle=\sffamily\bfseries,
+	width=\linewidth
+}{pr}
+% fin cadre propiété
+
+% cadre théorème
+\newtcbtheorem{theoreme}{Théorème}%
+{colback=myred!10!white,
+	colframe=myred!75,
+	fonttitle=\sffamily\bfseries,}{th}
+% fin cadre théorème
+
+% cadre document
+\newtcbtheorem{doc}{Document}%
+{colback=white,
+	fonttitle=\sffamily\bfseries,}{th}
+% fin cadre document
+
+% cadre remarque
+\newtcolorbox{remarque}{
+	breakable,
+	enhanced jigsaw,
+	oversize,
+	rightrule=0pt,
+	toprule=0pt,
+	bottomrule=0pt,
+	colback=white,
+	arc=0pt,
+	outer arc=0pt,
+	fonttitle=\normalsize\sffamily\bfseries,
+	titlerule=0pt,
+	bottomtitle=0pt,
+	top=0pt,
+	bottom=0pt,
+	left=5pt,
+	before skip = 0.3cm,
+	after skip = 0.3cm,
+	blanker, 
+	borderline west={1.5pt}{-20pt}{myorange},
+	colframe=myorange,
+	width=\textwidth,
+	left skip = 60pt,
+	title={\color{myorange} \faLightbulb\ Remarque}
+}
+% fin cadre remarque
+
+% cadre exemple
+\newtcolorbox{exemple}{
+	breakable,
+	enhanced jigsaw,
+	oversize,
+	rightrule=0pt,
+	toprule=0pt,
+	bottomrule=0pt,
+	colback=white,
+	arc=0pt,
+	outer arc=0pt,
+	fonttitle=\normalsize\sffamily\bfseries,
+	titlerule=0pt,
+	bottomtitle=0pt,
+	top=0pt,
+	bottom=0pt,
+	left=5pt,
+	before skip = 0.3cm,
+	after skip = 0.3cm,
+	blanker, 
+	borderline west={1.5pt}{-20pt}{myblue!75!black},
+	colframe=myblue!75!black,
+	width=\textwidth,
+	left skip = 60pt,
+	title={\color{myblue} \faCheck\ Exemple}
+}
+% fin cadre exemple
+
+% cadre rappel
+\newtcolorbox{rappel}{
+	breakable,
+	enhanced jigsaw,
+	oversize,
+	rightrule=0pt,
+	toprule=0pt,
+	bottomrule=0pt,
+	colback=white,
+	arc=0pt,
+	outer arc=0pt,
+	fonttitle=\normalsize\sffamily\bfseries,
+	titlerule=0pt,
+	bottomtitle=0pt,
+	top=0pt,
+	bottom=0pt,
+	left=5pt,
+	before skip = 0.3cm,
+	after skip = 0.3cm,
+	blanker, 
+	borderline west={1.5pt}{-20pt}{myblue!75!black},
+	colframe=myblue!75!black,
+	width=\textwidth,
+	left skip = 60pt,
+	title={\color{myblue} \faClock\ Rappel}
+}
+% fin cadre rappel
+
+% cadre exercice
+\tcbset{no solution/.style={no recording,after upper=,after title=}} % Change les paramètres de la tcolorbox si l'option "no solution" est utilisée
+
+\NewTColorBox[auto counter]{exocours}{+!O{}}{ % Cadre pour les exercices dans le cours
+	enhanced,
+	blanker, 
+	breakable,
+	coltitle=black,
+	borderline west={1.5pt}{-20pt}{black},
+	colframe=black,
+	width=\linewidth,
+	left skip = 60pt,
+	before skip = 0.3cm,
+	after skip = 0.3cm,
+	fonttitle=\normalsize\sffamily\bfseries,
+	title={\faPen\ Exercice~\thetcbcounter},
+	after title={\hfill \mdseries (Solution à la page \textcolor{myblue}{\bfseries\pageref{solution@\thetcbcounter}})},
+	label={exercise@\thetcbcounter},
+	lowerbox=ignored,
+	savelowerto=solutions/exercise-\thetcbcounter.tex,
+	record={\string\solution{\thetcbcounter}{solutions/exercise-\thetcbcounter.tex}},
+	#1
+}
+
+\NewTColorBox[auto counter]{exercice}{O{} m m}{ % Cadre pour les exercices de TD
+	enhanced,
+	blanker,
+	breakable,
+	before skip = 0.3cm,
+	after skip = 0.6cm,
+	coltitle = black,
+	width=\linewidth,
+	fonttitle=\normalsize\sffamily\bfseries,
+	title={\tcbox[size=title,on line]{Exercice~\thetcbcounter} \ #2 \hfill \ #3},
+	after upper={\par \hfill \mdseries (Solution p.\textcolor{myblue}{\bfseries\pageref{solution@\thetcbcounter}})},
+	label={exercise@\thetcbcounter},
+	lowerbox=ignored,
+	savelowerto=solutions/exercise-\thetcbcounter.tex,
+	record={\string\solution{\thetcbcounter}{solutions/exercise-\thetcbcounter.tex}},
+	#1
+}
+
+\NewTotalTColorBox{\solution}{mm}{%
+	enhanced,
+	blanker, 
+	coltitle=black,
+	before skip = 0.3cm,
+	after skip = 0.3cm,
+	width=\linewidth,
+	fonttitle=\normalsize\sffamily\bfseries,
+	title={Solution de l'exercice~\textcolor{myblue}{\ref{exercise@#1}} p.\textcolor{myblue}{\pageref{exercise@#1}}},
+	phantomlabel={solution@#1},
+	attach title to upper=\par,
+}{\input{#2}}
+
+\newcommand{\solutions}{\tcbstoprecording\tcbinputrecords\tcbstartrecording} % Appelle les solutions des exercices
+% fin cadre exercice
+
+% icones
+\newcommand{\astuce}{{\Large \textcolor{yellow}{\small\faLightbulb}}\hspace{5pt}}
+\newcommand{\aide}{{\Large \textcolor{red}{\small\faLifeRing}}\hspace{5pt}}
+\newcommand{\attention}{{\Large \textcolor{red}{\small\faExclamationTriangle}}\hspace{5pt}}
+\newcommand{\calcul}{{\Large \textcolor{purple}{\small\faEdit}}\hspace{5pt}}
+\newcommand{\deduction}{{\Large \textcolor{myblue}{\small\faCogs}}\hspace{5pt}}
+\newcommand{\chimie}{{\Large \textcolor{black}{\faFlask}}\hspace{5pt}}
+\newcommand{\groupe}{{\Large \textcolor{black}{\small\faUsers}}\hspace{5pt}}
+\newcommand{\temps}{{\Large \textcolor{black}{\small\faClock}}\hspace{5pt}}
+\newcommand{\materiel}{{\Large \textcolor{black}{\small\faList}}\hspace{5pt}}
+\newcommand{\personne}{{\Large \textcolor{black}{\small\faUser}}\hspace{5pt}}
+\newcommand{\maison}{{\Large \textcolor{black}{\small\faHome}}\hspace{5pt}}
+\newcommand{\maths}{{\Large \textcolor{black}{\faSubscript}}\hspace{5pt}}
+\newcommand{\physique}{{\Large \textcolor{black}{\faRocket}}\hspace{5pt}}
+\newcommand{\comp}{{\Large \textcolor{myblue}{\small\faGraduationCap}}\hspace{3pt}}
+\newcommand{\appel}[1]{\vspace{0.5cm}\centerline{\fbox{{\Large \faHandPaper}\ \ {#1}}}\vspace{0.5cm}}
+\newcommand{\fondamental}{\faHeart}
+\newcommand{\facile}{\faStar}
+\newcommand{\intermediaire}{\faStar\faStar}
+\newcommand{\difficile}{\faStar\faStar\faStar}
+\newcommand{\pointilles}[1]{
+	\multido{}{#1}{%
+		\leavevmode\hdashrule[0ex]{\linewidth}{0.5pt}{1mm}\kern 0pt\\[0.5\parskip\vspace{0.5cm}]
+	}
+	\vspace*{-0.5\parskip}
+}
+
+\newcounter{question}
+\newenvironment{question}[1][]{\refstepcounter{question}\par\medskip
+	\textbf{\sffamily Q\thequestion.~}#1\rmfamily}{}
+% fin icônes
+
+% audiences
+\newcommand{\eleve}[1]{
+\begin{shownto}{eleve,default}
+	#1
+\end{shownto}
+}
+
+\newcommand{\prof}[1]{
+	\begin{shownto}{prof}
+		#1
+	\end{shownto}
+}
+% fin audiences
