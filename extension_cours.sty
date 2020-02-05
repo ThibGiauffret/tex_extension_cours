@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 
-\ProvidesPackage{extension_cours}[2018/10/21 Extension personnelle Th. G, V2.3]
+\ProvidesPackage{extension_cours}[2019/07/25 Extension personnelle Th. G, V2.4]
 
 %----------------------------------------------------------------------------------------
 %	PAQUETS REQUIS ET CONFIGURATIONS
@@ -8,9 +8,9 @@
 \RequirePackage[top=2cm, bottom=2cm, left=1cm, right=1cm]{geometry} % Mise en forme des marges
 \RequirePackage[dvipsnames]{xcolor} % Gestion des couleurs en Latex
 \RequirePackage[T1]{fontenc} % Saisie des caractères accentués
-\RequirePackage[francais]{babel} % Mise en forme française du document (chapitre, parties...)
+\RequirePackage[french]{babel} % Mise en forme française du document (chapitre, parties...)
 \RequirePackage{amsmath} % Alignement des équations sur plusieurs lignes (eqnarray)
-\RequirePackage[nottoc, notlof, notlot]{tocbibind} % Gestion de la bibliographie et de la table des matières
+%\RequirePackage[notlof, notlot]{tocbibind} % Gestion de la bibliographie et de la table des matières
 \RequirePackage{amssymb} % Symboles mathématiques supplémentaires
 \RequirePackage{lmodern} % Police Latin Modern
 \RequirePackage{fancyhdr} % Style de page
@@ -61,6 +61,7 @@ pdfcreator={pdflatex}]
 \RequirePackage{pstricks} % Dessin post script
 \RequirePackage{pst-plot}
 \RequirePackage{pst-grad}
+\RequirePackage{qrcode}
 \RequirePackage{multiaudience} 
 \SetNewAudience{prof}
 \SetNewAudience{eleve}
@@ -82,7 +83,7 @@ pdfcreator={pdflatex}]
 \rhead{\sffamily \auteur} % Positionne le nom de l'auteur en haut à droite
 \lhead{\sffamily \niveau,\ \etablissement} % Positionne la classe et l'établissement en haut à gauche
 \rfoot{\sffamily \bfseries \thepage/\begingroup\hypersetup{hidelinks}\pageref{LastPage}\endgroup} % Positionne le numéro de page en bas à droite
-\cfoot{\tiny \sffamily \today, \textcolor{myblue}{\url{http://thibault.giauffret.free.fr}}} % Position supplémentaire en bas au centre
+\cfoot{\tiny \sffamily \today, \textcolor{myblue}{\url{https://www.ensciences.fr}}} % Position supplémentaire en bas au centre
 
 %----------------------------------------------------------------------------------------
 %	COULEURS
@@ -175,7 +176,7 @@ pdfcreator={pdflatex}]
 			\color{black}
 			\tableofcontents}
 		\tcbsubtitle[]%
-		{\strut \faGraduationCap\ Compétences}
+		{\strut \faGraduationCap\ Capacités exigibles}
 		{\small \competences}
 		\tcblower
 		\vspace{-0.65cm}
@@ -213,7 +214,7 @@ pdfcreator={pdflatex}]
 	\begin{titleboxactivite}
 		\vspace{-0.65cm}
 		\tcbsubtitle[]%
-		{\strut \faGraduationCap\ Compétences exigibles}
+		{\strut \faGraduationCap\ Capacités exigibles}
 		{\small \competences}
 		\tcblower
 		\vspace{-0.65cm}
@@ -234,6 +235,8 @@ pdfcreator={pdflatex}]
 			\end{tabular}
 			\vspace{-0.3cm}}
 	\end{titleboxactivite}
+	\setcounter{questioncount}{0}
+\setcounter{tcb@cnt@doc}{0}
 	\tcbstartrecording
 }
 
@@ -242,7 +245,7 @@ pdfcreator={pdflatex}]
 	\begin{titleboxactivite}
 		\vspace{-0.65cm}
 		\tcbsubtitle[]%
-		{\strut \faGraduationCap\ Compétences exigibles}
+		{\strut \faGraduationCap\ Capacités exigibles}
 		{\small \competences}
 		\tcblower
 		\vspace{-0.65cm}
@@ -255,6 +258,40 @@ pdfcreator={pdflatex}]
 	}
 	\end{titleboxactivite}
 	\tcbstartrecording
+		\setcounter{questioncount}{0}
+\setcounter{tcb@cnt@doc}{0}
+}
+
+
+\newcommand{\EnteteEval}{
+	\vspace{-2cm}
+	\begin{titleboxactivite}
+		\vspace{-0.65cm}
+		\tcbsubtitle[]%
+		{\strut \faGraduationCap\ Appréciation}
+		{}
+		\tcblower
+		\vspace{-0.65cm}
+		\tcbsubtitle[]%
+		{\strut \faMedal\ Autoévaluation/Évaluation}
+		{\vspace{-0.23cm} \small \hspace{-0.5cm}
+			\begin{tabular}{c|c|c|c|c|c}
+				\multirow{2}{*}{\textbf{\textit{S'approprier}}} & \cellcolor{gray!25}Élève & \cellcolor{gray!25}A & \cellcolor{gray!25}B & \cellcolor{gray!25}C & \cellcolor{gray!25}D\\
+				& Prof & a & b & c & d\\
+				\multirow{2}{*}{\textbf{\textit{Analyser}}} & \cellcolor{gray!25}Élève & \cellcolor{gray!25}A & \cellcolor{gray!25}B & \cellcolor{gray!25}C & \cellcolor{gray!25}D\\
+				& Prof & a & b & c & d\\
+				\multirow{2}{*}{\textbf{\textit{Réaliser}}} & \cellcolor{gray!25}Élève & \cellcolor{gray!25}A & \cellcolor{gray!25}B & \cellcolor{gray!25}C & \cellcolor{gray!25}D\\
+				& Prof & a & b & c & d\\
+				\multirow{2}{*}{\textbf{\textit{Valider}}} & \cellcolor{gray!25}Élève & \cellcolor{gray!25}A & \cellcolor{gray!25}B & \cellcolor{gray!25}C & \cellcolor{gray!25}D\\
+				& Prof & a & b & c & d\\
+				\multirow{2}{*}{\textbf{\textit{Communiquer}}} & \cellcolor{gray!25}Élève & \cellcolor{gray!25}A & \cellcolor{gray!25}B & \cellcolor{gray!25}C & \cellcolor{gray!25}D\\
+				& Prof & a & b & c & d\\
+			\end{tabular}
+			\vspace{-0.3cm}}
+	\end{titleboxactivite}
+	\tcbstartrecording
+		\setcounter{questioncount}{0}
+\setcounter{tcb@cnt@doc}{0}
 }
 
 \newtcolorbox{titleboxsimple}{
@@ -271,6 +308,8 @@ pdfcreator={pdflatex}]
 		\bfseries\sffamily \Large \matiere \hsp \titre \hfill \code
 	\end{titleboxsimple}
 	\tcbstartrecording
+		\setcounter{questioncount}{0}
+\setcounter{tcb@cnt@doc}{0}
 }
 % fin entêtes
 
@@ -309,6 +348,7 @@ pdfcreator={pdflatex}]
 \newtcbtheorem{doc}{Document}%
 {colback=white,
 	fonttitle=\sffamily\bfseries,}{th}
+	
 % fin cadre document
 
 % cadre remarque
@@ -387,11 +427,11 @@ pdfcreator={pdflatex}]
 	before skip = 0.3cm,
 	after skip = 0.3cm,
 	blanker, 
-	borderline west={1.5pt}{-20pt}{myblue!75!black},
-	colframe=myblue!75!black,
+	borderline west={1.5pt}{-20pt}{myorange},
+	colframe=myorange,
 	width=\textwidth,
 	left skip = 60pt,
-	title={\color{myblue} \faClock\ Rappel}
+	title={\color{myorange} \faClock\ Rappel}
 }
 % fin cadre rappel
 
@@ -410,7 +450,7 @@ pdfcreator={pdflatex}]
 	before skip = 0.3cm,
 	after skip = 0.3cm,
 	fonttitle=\normalsize\sffamily\bfseries,
-	title={\faPen\ Exercice~\thetcbcounter},
+	title={\faPen\ Exercice~\thetcbcounter \setcounter{questioncount}{0}},
 	after title={\hfill \mdseries (Solution à la page \textcolor{myblue}{\bfseries\pageref{solution@\thetcbcounter}})},
 	label={exercise@\thetcbcounter},
 	lowerbox=ignored,
@@ -428,7 +468,7 @@ pdfcreator={pdflatex}]
 	coltitle = black,
 	width=\linewidth,
 	fonttitle=\normalsize\sffamily\bfseries,
-	title={\tcbox[size=title,on line]{Exercice~\thetcbcounter} \ #2 \hfill \ #3},
+	title={\tcbox[size=title,on line]{Exercice~\thetcbcounter} \ #2 \hfill \ #3\setcounter{questioncount}{0}},
 	after upper={\par \hfill \mdseries (Solution p.\textcolor{myblue}{\bfseries\pageref{solution@\thetcbcounter}})},
 	label={exercise@\thetcbcounter},
 	lowerbox=ignored,
@@ -445,7 +485,7 @@ pdfcreator={pdflatex}]
 	after skip = 0.3cm,
 	width=\linewidth,
 	fonttitle=\normalsize\sffamily\bfseries,
-	title={Solution de l'exercice~\textcolor{myblue}{\ref{exercise@#1}} p.\textcolor{myblue}{\pageref{exercise@#1}}},
+	title={Solution de l'exercice~\textcolor{myblue}{\ref{exercise@#1}\setcounter{questioncount}{0}} p.\textcolor{myblue}{\pageref{exercise@#1}}},
 	phantomlabel={solution@#1},
 	attach title to upper=\par,
 }{\input{#2}}
@@ -460,6 +500,7 @@ pdfcreator={pdflatex}]
 \newcommand{\calcul}{{\Large \textcolor{purple}{\small\faEdit}}\hspace{5pt}}
 \newcommand{\deduction}{{\Large \textcolor{myblue}{\small\faCogs}}\hspace{5pt}}
 \newcommand{\chimie}{{\Large \textcolor{black}{\faFlask}}\hspace{5pt}}
+\newcommand{\info}{{\Large \textcolor{black}{\faDesktop}}\hspace{5pt}}
 \newcommand{\groupe}{{\Large \textcolor{black}{\small\faUsers}}\hspace{5pt}}
 \newcommand{\temps}{{\Large \textcolor{black}{\small\faClock}}\hspace{5pt}}
 \newcommand{\materiel}{{\Large \textcolor{black}{\small\faList}}\hspace{5pt}}
@@ -467,8 +508,46 @@ pdfcreator={pdflatex}]
 \newcommand{\maison}{{\Large \textcolor{black}{\small\faHome}}\hspace{5pt}}
 \newcommand{\maths}{{\Large \textcolor{black}{\faSubscript}}\hspace{5pt}}
 \newcommand{\physique}{{\Large \textcolor{black}{\faRocket}}\hspace{5pt}}
-\newcommand{\comp}{{\Large \textcolor{myblue}{\small\faGraduationCap}}\hspace{3pt}}
-\newcommand{\appel}[1]{\vspace{0.5cm}\centerline{\fbox{{\Large \faHandPaper}\ \ {#1}}}\vspace{0.5cm}}
+
+\newcounter{questioncount}
+\newenvironment{questioncount}[1][]{\refstepcounter{questioncount}\par\medskip
+	\textbf{\sffamily Q\thequestioncount}#1\rmfamily}{}
+	
+
+	\newtcbox{\questionsimple}{enhanced,nobeforeafter,before skip =2mm,tcbox raise base,boxrule=1pt,top=0mm,bottom=-0.5mm,
+  right=0mm,left=0mm,arc=1pt,boxsep=2pt,before upper={\vphantom{dlg}},
+  colframe=white!30!black,coltext=white!25!black,colback=black!20!white,}
+
+\robustify{\questionsimple}
+
+\pdfstringdefDisableCommands{%
+  \def\questionsimple#1{'#1'}%
+}
+
+\newcommand{\question}{\questionsimple{\questioncount}\ }
+
+\newtcbox{\questcomp}{enhanced,nobeforeafter,before skip =2mm,tcbox raise base,boxrule=1pt,top=0mm,bottom=-0.5mm,
+  right=0mm,left=9mm,arc=1pt,boxsep=2pt,before upper={\vphantom{dlg}},
+  colframe=white!30!black,coltext=white!25!black,colback=white,
+  overlay={
+  
+  \begin{tcbclipinterior}\fill[black!20!white] (frame.south west)
+    rectangle node[text=white!25!black,font=\sffamily\bfseries] {
+    \questioncount
+    } ([xshift=9mm]frame.north west);\end{tcbclipinterior}}}
+
+\robustify{\questcomp}
+
+\pdfstringdefDisableCommands{%
+  \def\questcomp#1{'#1'}%
+}
+
+\newcommand{\comp}[1]{{\small \textcolor{myblue}{\small\faGraduationCap}}\hspace{3pt}\textcolor{myblue}{\textbf{\sffamily #1}}}
+\newcommand{\appel}[1]{\vspace{0.5cm}\centerline{
+\begin{tcolorbox}
+{\Large \faHandPaper}\ \ {#1}
+\end{tcolorbox}
+}\vspace{0.5cm}}
 \newcommand{\fondamental}{\faHeart}
 \newcommand{\facile}{\faStar}
 \newcommand{\intermediaire}{\faStar\faStar}
@@ -479,10 +558,14 @@ pdfcreator={pdflatex}]
 	}
 	\vspace*{-0.5\parskip}
 }
+\newcommand{\source}[1]{
+	\begin{flushright}
+		\tiny
+		Source : \texttt{#1}
+	\end{flushright}
+}
 
-\newcounter{question}
-\newenvironment{question}[1][]{\refstepcounter{question}\par\medskip
-	\textbf{\sffamily Q\thequestion.~}#1\rmfamily}{}
+
 % fin icônes
 
 % audiences
@@ -494,6 +577,13 @@ pdfcreator={pdflatex}]
 
 \newcommand{\prof}[1]{
 	\begin{shownto}{prof}
+		\sffamily
+		#1
+	\end{shownto}
+}
+
+\newcommand{\web}[1]{
+	\begin{shownto}{web}
 		#1
 	\end{shownto}
 }

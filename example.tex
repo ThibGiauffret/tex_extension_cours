@@ -1,0 +1,46 @@
+%!TEX TS-program = xelatex
+\documentclass[11pt,a4paper,usenames,dvipsnames]{article}
+
+\newcommand{\auteur}{Auteur}
+\newcommand{\etablissement}{Etablissement}
+\newcommand{\niveau}{Niveau}
+\newcommand{\matiere}{\physique}
+\newcommand{\theme}{Thème}
+\newcommand{\titre}{Titre}
+\newcommand{\code}{Code}
+\newcommand{\competences}{
+
+Compétence 1
+	
+	}
+\newcommand{\documents}{
+	Activité 1}
+\newcommand{\exercices}{
+	Ex. 1 p.000\\
+	Ex. 2 p.123}
+
+\usepackage{extension_cours}
+
+
+\usepackage{qrcode}
+
+\begin{document}
+	
+	
+	\EnteteCours
+	
+	\section{Première section}
+	
+	\begin{definition}{Titre de la définition}{}
+	 Une définition
+	\end{definition}
+	
+	\section{Deuxième section}
+    
+    \subsection{Une sous-section}
+    
+    \begin{propriete}{Titre de la propriété}{}
+	 Une propriété
+	\end{propriete}
+
+	\end{document}
